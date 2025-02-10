@@ -100,12 +100,13 @@ class App extends Component {
   clickRemove = id => {
     const {countriesList} = this.state
 
-    const filteredCountry = countriesList.filter(
-      eacCountry => eacCountry.id !== id,
-    )
-    this.setState({
-      countriesList: filteredCountry,
+    const updatedCountriesList = countriesList.map(eachCountry => {
+      if (eachCountry.id === id) {
+        return {...eachCountry, isVisited: false}
+      }
+      return eachCountry
     })
+    this.setState({countriesList: updatedCountriesList})
   }
 
   render() {
@@ -113,7 +114,7 @@ class App extends Component {
     const updatedList = countriesList.filter(
       country => country.isVisited === true,
     )
-    console.log(updatedList)
+    console.log(countriesList)
     return (
       <div className="app-container">
         <h1 className="heading">Countries</h1>
